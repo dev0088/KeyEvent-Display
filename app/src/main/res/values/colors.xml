@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#512DA8</color>
+    <color name="colorAccent">#FF5722</color>
+
+    <color name="black">#000000</color>
+    <color name="lime">#00FF00</color>
+
+    <color name="color_keyup">#FF8C00</color>
+    <color name="color_keydown">#A4C639</color>
+    <color name="color_keymultiple">#FF0000</color>
+    <color name="color_keylongpress">#0000FF</color>
+    <color name="color_logcat">#FF00FF</color>
+    <color name="color_kernel">#FFFF00</color>
+</resources>

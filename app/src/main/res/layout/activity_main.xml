@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        style="?attr/buttonBarStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnClear"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:text="@string/button_clear"/>
+
+            <Button
+                android:id="@+id/btnBreak"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:text="@string/button_break"/>
+
+            <ImageButton
+                android:id="@+id/btnSave"
+                style="?android:attr/borderlessButtonStyle"
+                android:contentDescription="@string/image_placeholder"
+                android:layout_width="@dimen/toolbar_button_height"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:src="@drawable/ic_save"/>
+
+            <ImageButton
+                android:id="@+id/btnShare"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="@dimen/toolbar_button_height"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:contentDescription="@string/image_placeholder"
+                android:src="@drawable/ic_share"/>
+
+            <ImageButton
+                android:id="@+id/btnAbout"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="@dimen/toolbar_button_height"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:contentDescription="@string/image_placeholder"
+                android:src="@drawable/ic_info"/>
+
+            <ImageButton
+                android:id="@+id/btnExit"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="@dimen/toolbar_button_height"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:contentDescription="@string/image_placeholder"
+                android:src="@drawable/ic_close"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
+                android:text="@string/label_Show_Events"/>
+
+            <CheckBox
+                android:id="@+id/chkKeyEvents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
+                android:checked="true"
+                android:text="@string/label_keyevents"/>
+
+            <CheckBox
+                android:id="@+id/chkLogCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
+                android:text="@string/label_logcat"/>
+
+            <CheckBox
+                android:id="@+id/chkKernel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp"
+                android:text="@string/label_kernel"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/fldEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@color/black"
+            android:scrollbars="vertical"
+            android:text="@string/greeting"
+            android:textColor="@color/lime"
+            android:textSize="12sp"
+            android:typeface="monospace"/>
+    </HorizontalScrollView>
+
+</LinearLayout>

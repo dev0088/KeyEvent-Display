@@ -1,0 +1,97 @@
+plugins {
+    id 'com.android.application'
+    id 'com.github.triplet.play' version '2.5.0'
+}
+
+apply from: "${project.rootDir}/buildsystem/android-defaults.gradle"
+
+android {
+
+    final int buildNumber = getBuildNumber()
+    final int versionMajor = 1
+    final int versionMinor = 0
+    final int versionPatch = buildNumber
+    final int androidVersionCode = buildNumber
+
+    final String semanticVersion = "${versionMajor}.${versionMinor}.${versionPatch}"
+
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("ANDROID_KEYSTORE") ?: "[KEY_NOT_DEFINED]")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+
+        debug {
+            storeFile file("${project.rootDir}/buildsystem/signing_keys/debug.keystore")
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+        }
+    }
+
+    defaultConfig {
+        versionCode androidVersionCode
+        versionName semanticVersion
+
+        buildConfigField "boolean", "STRICT_MODE", "false"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            resValue "string", "app_name", "KeyEvent Display"
+            if(isRunningOnCi()) {
+                signingConfig signingConfigs.release
+            }
+        }
+
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
+
+            resValue "string", "app_name", "Debug KeyEvent Display"
+
+            buildConfigField "boolean", "STRICT_MODE", "true"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    implementation project(':monitors')
+
+    implementation "com.karumi:dexter:$dexter_version"
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+    implementation "androidx.annotation:annotation:$androidx_annotation_version"
+
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+}
+
+play {
+    def credentialsPath = System.getenv("GPLAY_DEPLOY_KEY") ?: "[KEY_NOT_DEFINED]"
+    def lastCommitMessage = getLastGitCommitMessage().take(50)
+
+    logger.warn("GPP Config: $credentialsPath")
+    logger.warn("Release Name: '$lastCommitMessage'")
+
+    if(isRunningOnCi()) {
+        enabled = true
+        track = "internal"
+        //userFraction = 1.0
+        releaseStatus = "completed"
+        serviceAccountCredentials = file(credentialsPath)
+        releaseName = lastCommitMessage
+        artifactDir = file("${project.rootDir}/app/build/outputs/apk/release/")
+    } else {
+        enabled = false
+    }
+}
